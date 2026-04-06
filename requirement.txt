@@ -1,0 +1,1 @@
+pip install fastapi uvicorn psycopg2-binary python-dotenv openai langchain langchain-openai langchain-community pgvector tiktoken requests sqlalchemy
