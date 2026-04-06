@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse, RedirectResponse
 from pydantic import BaseModel
 
 from rag_chain  import rag_generate_sql, rag_summarise
@@ -44,9 +45,11 @@ def find_nearest_hospitals(lat: float, lon: float, limit: int = 3) -> list:
 
 @app.post("/api/geo-query")
 async def geo_query(req: QueryRequest):
+    print(f"Received query: {req.query}")
 
     # ── Step 1: Detect intent ──
     intent_data = detect_intent(req.query)
+    print(f"Detected intent: {intent_data}")
     intent      = intent_data.get("intent", "FILTER_HOSPITALS")
     location    = intent_data.get("location")
 
